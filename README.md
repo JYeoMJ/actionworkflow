@@ -1,6 +1,6 @@
 # actionworkflow
 GitHub Action Workflow Tutorial
-***
+
 ## Github Actions Workflow Tutorial
 
 ### What is Github Actions?
@@ -9,7 +9,6 @@ GitHub Action Workflow Tutorial
 * Task automation for streamlining development process
 * Used for CI/CD Continuous Integration & Deployment
 * GitHub Actions provides a **seperate workfow envrionment**, note files generated within workflow are not automatically commited to repository.
-
 
 ### Overview:
 
@@ -20,6 +19,39 @@ GitHub Action Workflow Tutorial
 	* Create a `.github/workflows` directory within repository root
 	* Create workflow `python-app.yml` file within `.github/workflows`.
 5. Running the Workflow
+***
+### Python Model File Example
+
+`model.py` file contents:
+```python
+import numpy as np
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+def main():
+	data = load_breast_cancer()
+	X = data.data
+	y = data.target
+
+	# Train-test split of data
+	X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=42)
+
+	
+	# Create and train the model
+	model = LogisticRegression(max_iter=10000)
+	model.fit(X_train, y_train)
+	
+	# Predict and calculate accuracy
+	predictions = model.predict(X_test)
+	accuracy = accuracy_score(y_test, predictions)
+	print(f"Accuracy: {accuracy:.2f}")
+
+if __name__ == "__main__":
+  main()
+```
+
 ***
 ### Workflow file creation
 
